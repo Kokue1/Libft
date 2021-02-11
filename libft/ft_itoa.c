@@ -6,84 +6,95 @@
 /*   By: flemos-d <flemos-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 00:22:39 by flemos-d          #+#    #+#             */
-/*   Updated: 2021/02/08 20:43:10 by flemos-d         ###   ########.fr       */
+/*   Updated: 2021/02/11 18:40:43 by flemos-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*ft_reverse(char *str, int sig)
+int     absolute_value(int nbr)
 {
-	int		i;
-	int		end;
-	char	*aux;
-
-	i = 0;
-	end = ft_strlen(str);
-	aux = malloc(sizeof(char) * (end + 1 + sig));
-	if (aux == NULL)
+    if (nbr < 0)
+        return (-nbr);
+    return (nbr);
+}
+ 
+int     get_len(int nbr)
+{
+    int len = 0;
+    if (nbr <= 0)
+        ++len;
+    while (nbr != 0)
+    {
+        ++len;
+        nbr = nbr / 10;
+    }
+    return (len);
+}
+ 
+char    *ft_itoa(int nbr)
+{
+    char *result;
+    int len;
+ 
+    len = get_len(nbr);
+    result = malloc(sizeof(char) * (len + 1));
+	if (!result)
 		return (NULL);
-	if (sig)
-	{
-		aux[0] = '-';
-		end++;
-	}
-	while (str[i])
-		aux[--end] = str[i++];
-	free(str);
-	if (sig == 0)
-		aux[i] = '\0';
-	else
-		aux[++i] = '\0';
-	return (aux);
+    result[len] = '\0';
+    if (nbr < 0)
+        result[0] = '-';
+    else if (nbr == 0)
+        result[0] = '0';
+    while (nbr != 0)
+    {
+        --len;
+        result[len] = absolute_value(nbr % 10) + '0';
+        nbr = nbr / 10;
+    }
+    return (result);
 }
 
-static int	digits(int n)
+ #include <limits.h>
+ 
+int		main(void)
 {
-	int		dig;
+	int number1 = 123456789;
+	int number2 = 1;
+	int number3 = 0;
+	int number4 = 0001342;
+	int number5 = 42;
+	int number6 = 422;
 
-	dig = 1;
-	if (n == (-2147483648))
-		return (dig = 12);
-	while (n > 9)
+	int number7 = -123456789;
+	int number8 = -1;
+	int number9 = -0;
+	int number10 = -00101;
+	int number11 = -42;
+	int number12 = -422;
+
+	ft_itoa(number1);
+	ft_itoa(number2);
+	ft_itoa(number3);
+	ft_itoa(number4);
+	ft_itoa(number5);
+	ft_itoa(number6);
+	ft_itoa(number7);
+	ft_itoa(number8);
+	ft_itoa(number9);
+	ft_itoa(number10);
+	ft_itoa(number11);
+	ft_itoa(number12);
+
+/*
+	for (int i = -100; i <= 0 ; i++)
 	{
-		dig++;
-		n = n / 10;
+		ft_itoa(i);
 	}
-	return (dig);
-}
-
-static char	*min_value(char *ret)
-{
-	ret = ft_strdup("-2147483648");
-	return (ret);
-}
-
-char	*ft_itoa(int n)
-{
-	char	*ret;
-	int		i;
-	int		sig;
-
-	sig = 0;
-	i = 0;
-	ret = malloc(sizeof(char) * (digits(n) + 1));
-	if (ret == NULL)
-		return (NULL);
-	if (n == (-2147483648))
-		return (min_value(ret));
-	if (n < 0)
+	for (int i = 0; i <= 100 ; i++)
 	{
-		n = n * (-1);
-		sig = 1;
+		ft_itoa(i);
 	}
-	while (n > 9)
-	{
-		ret[i++] = (n % 10) + '0';
-		n = n / 10;
-	}
-	ret[i++] = n + '0';
-	ret[i] = '\0';
-	ret = ft_reverse(ret, sig);
-	return (ret);
+*/
+	return (0);
 }
