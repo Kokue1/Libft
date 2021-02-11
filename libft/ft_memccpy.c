@@ -24,7 +24,7 @@ void	*ft_memccpy(void *dest, const void *src, int c, size_t count)
 	while (i < count)
 	{
 		*trade2 = *trade;
-		if ((*trade == (unsigned char)c))
+		if (*trade == (unsigned char)c)
 			return (dest + i + 1);
 		trade++;
 		i++;
