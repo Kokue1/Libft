@@ -12,91 +12,48 @@
 
 #include "libft.h"
 
-static char	**ft_clear_splitted(char **trade)
+static size_t	get_length(const char *s, char c)
 {
-	unsigned int	i;
+	int	count;
 
-	i = 0;
-	while (trade[i])
+	count = 0;
+	while (*s)
 	{
-		free(trade[i]);
-		i++;
-	}
-	free(trade);
-	return (NULL);
-}
-
-static void	ft_get_trade(char **trade2, unsigned int *trade_len,
-					char c)
-{
-	unsigned int	i;
-
-	i = 0;
-	*trade2 += *trade_len;
-	*trade_len = 0;
-	while (**trade2 && **trade2 == c)
-		(*trade2)++;
-	while ((*trade2)[i])
-	{
-		if ((*trade2)[i] == c)
-			return ;
-		(*trade_len)++;
-		i++;
-	}
-}
-
-static unsigned int	ft_strchr_wannabe(char const *s, char c)
-{
-	unsigned int	i;
-	unsigned int	strchrwannabe;
-
-	i = 0;
-	strchrwannabe = 0;
-	if (!s[0])
-		return (0);
-	while (s[i] && s[i] == c)
-		i++;
-	while (s[i])
-	{
-		if (s[i] == c)
-		{
-			strchrwannabe++;
-			while (s[i] && s[i] == c)
-				i++;
+		if (*s++ == c)
 			continue ;
-		}
-		i++;
+		count++;
+		while (*s && *s != c)
+			s++;
 	}
-	if (s[i - 1] != c)
-		strchrwannabe++;
-	return (strchrwannabe);
+	return (count);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char			**trade;
-	char			*trade2;
-	unsigned int	trade_len;
-	unsigned int	strchrwannabe;
-	unsigned int	i;
+	char	**strs;
+	char	**sav_strs;
+	char	*sav_s;
 
-	i = 0;
-	trade_len = 0;
 	if (!s)
-		return (NULL);
-	trade2 = (char *)s;
-	strchrwannabe = ft_strchr_wannabe(s, c);
-	trade = (char **)malloc(sizeof(char *) * (strchrwannabe + 1));
-	if (trade == NULL)
-		return (NULL);
-	while (i < strchrwannabe)
+		return (0);
+	if (!(strs = malloc((get_length(s, c) + 1) * sizeof(char *))))
+		return (0);
+	sav_strs = strs;
+	while (*s)
 	{
-		ft_get_trade(&trade2, &trade_len, c);
-		trade[i] = (char *)malloc(sizeof(char) * (trade_len + 1));
-		if (trade[i] == NULL)
-			return (ft_clear_splitted(trade));
-		ft_strlcpy(trade[i++], trade2, trade_len + 1);
+		if (*s == c)
+		{
+			s++;
+			continue ;
+		}
+		sav_s = (char *)s;
+		while (*s && *s != c)
+			s++;
+		if (!(*strs = malloc((s - sav_s + 1) * sizeof(char))))
+			return (0);
+		ft_strlcpy(*strs++, sav_s, s - sav_s + 1);
 	}
-	trade[i] = NULL;
-	return (trade);
+	*strs = 0;
+	return (sav_strs);
 }
+
