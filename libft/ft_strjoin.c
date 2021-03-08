@@ -6,7 +6,7 @@
 /*   By: flemos-d <flemos-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 12:02:23 by flemos-d          #+#    #+#             */
-/*   Updated: 2021/02/08 20:54:02 by flemos-d         ###   ########.fr       */
+/*   Updated: 2021/03/03 11:04:18 by flemos-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,28 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t	i;
-	size_t	j;
-	size_t	k;
-	char	*trade;
+	char	*string;
+	int		len;
+	int		i;
+	int		b;
 
 	i = 0;
-	j = 0;
+	b = 0;
 	if (!s1)
 		return (NULL);
 	if (!s2 && s1)
 		return ((char *)s1);
-	k = ft_strlen(s1) + ft_strlen(s2);
-	trade = malloc(k + 1 * sizeof(trade));
-	if (trade == NULL)
+	len = ft_strlen(s1) + ft_strlen(s2);
+	string = malloc(len + 1 * sizeof(string));
+	if (string == NULL)
 		return (NULL);
 	while (s1[i] != '\0')
 	{
-		trade[i] = s1[i];
+		string[i] = s1[i];
 		i++;
 	}
-	while (s2[j] != '\0')
-		trade[i++] = s2[j++];
-	trade[i] = '\0';
-	return (trade);
+	while (s2[b] != '\0')
+		string[i++] = s2[b++];
+	string[i] = '\0';
+	return (string);
 }

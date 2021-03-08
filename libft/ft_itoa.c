@@ -34,7 +34,7 @@ static int	get_len(int n)
 	return (len);
 }
 
-char	*ft_itoa(int n)
+char		*ft_itoa(int n)
 {
 	char	*result;
 	int		len;

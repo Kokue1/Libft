@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: flemos-d <flemos-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/01 09:01:30 by flemos-d          #+#    #+#             */
-/*   Updated: 2021/02/08 20:54:45 by flemos-d         ###   ########.fr       */
+/*   Created: 2021/03/01 10:09:05 by flemos-d          #+#    #+#             */
+/*   Updated: 2021/03/01 10:09:08 by flemos-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,18 @@
 
 char	*ft_strrchr(const char *haystack, int needle)
 {
-	int	i;
+	char	*last;
 
-	i = ft_strlen(haystack);
+	last = 0;
 	if (needle == '\0')
-		return ((char *)haystack + i);
-	while (haystack[i] != needle && i >= 0)
-		i--;
-	if (needle == haystack[i])
-		return ((char *)haystack + i);
-	return (NULL);
+		return ((char *)haystack + ft_strlen(haystack));
+	while (*haystack)
+	{
+		if (*haystack == needle)
+		{
+			last = ((char *)haystack);
+		}
+		haystack++;
+	}
+	return (last);
 }

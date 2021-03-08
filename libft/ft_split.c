@@ -6,7 +6,7 @@
 /*   By: flemos-d <flemos-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 01:33:52 by flemos-d          #+#    #+#             */
-/*   Updated: 2021/02/08 20:50:42 by flemos-d         ###   ########.fr       */
+/*   Updated: 2021/03/01 10:10:02 by flemos-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static size_t	get_length(const char *s, char c)
 	return (count);
 }
 
-char	**ft_split(char const *s, char c)
+char			**ft_split(char const *s, char c)
 {
 	char	**strs;
 	char	**sav_strs;
@@ -56,4 +56,3 @@ char	**ft_split(char const *s, char c)
 	*strs = 0;
 	return (sav_strs);
 }
-
